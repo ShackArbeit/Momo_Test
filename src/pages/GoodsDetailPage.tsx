@@ -9,9 +9,9 @@ export default function GoodsDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { addItem } = useCart()
-  const product = id ? getProductById(id) : undefined
+  const found = id ? getProductById(id) : undefined
 
-  if (!product) {
+  if (!found) {
     return (
       <div className="goods-not-found">
         <p>找不到此商品（ID：{id}）</p>
@@ -20,39 +20,39 @@ export default function GoodsDetailPage() {
     )
   }
 
-  const discount = Math.round((1 - product.price / product.originalPrice) * 100)
-  const related = getProductsByCategory(product.category).filter(p => p.id !== product.id).slice(0, 5)
+  const discount = Math.round((1 - found.price / found.originalPrice) * 100)
+  const related = getProductsByCategory(found.category).filter(p => p.id !== found.id).slice(0, 5)
 
   function handleAddToCart() {
-    addItem(product)
-    logEvent({ type: 'add_to_cart', productId: product.id, productName: product.name, price: product.price })
+    addItem(found!)
+    logEvent({ type: 'add_to_cart', productId: found!.id, productName: found!.name, price: found!.price })
   }
 
   return (
     <div className="goods-detail-page">
       <div className="goods-detail-inner">
         <div className="goods-image-area">
-          <img src={product.image} alt={product.name} className="goods-main-img" />
+          <img src={found.image} alt={found.name} className="goods-main-img" />
           {discount > 0 && <span className="goods-discount-badge">折扣 {discount}%</span>}
         </div>
 
         <div className="goods-info-area">
-          <p className="goods-category-tag">{product.category}</p>
-          <h1 className="goods-name">{product.name}</h1>
+          <p className="goods-category-tag">{found.category}</p>
+          <h1 className="goods-name">{found.name}</h1>
 
           <div className="goods-rating-row">
-            <span className="goods-stars">{'★'.repeat(Math.round(product.rating))}{'☆'.repeat(5 - Math.round(product.rating))}</span>
-            <span className="goods-rating-num">{product.rating}</span>
-            <span className="goods-review-count">（{product.reviewCount} 則評價）</span>
+            <span className="goods-stars">{'★'.repeat(Math.round(found.rating))}{'☆'.repeat(5 - Math.round(found.rating))}</span>
+            <span className="goods-rating-num">{found.rating}</span>
+            <span className="goods-review-count">（{found.reviewCount} 則評價）</span>
           </div>
 
           <div className="goods-price-area">
-            <span className="goods-price">${product.price.toLocaleString()}</span>
-            <span className="goods-original-price">${product.originalPrice.toLocaleString()}</span>
+            <span className="goods-price">${found.price.toLocaleString()}</span>
+            <span className="goods-original-price">${found.originalPrice.toLocaleString()}</span>
           </div>
 
           <div className="goods-tags">
-            {product.tags.map(t => (
+            {found.tags.map(t => (
               <span key={t} className="goods-tag">{t}</span>
             ))}
           </div>
@@ -61,7 +61,7 @@ export default function GoodsDetailPage() {
             加入購物車
           </button>
 
-          <p className="goods-id-label">商品編號：{product.id}</p>
+          <p className="goods-id-label">商品編號：{found.id}</p>
         </div>
       </div>
 
