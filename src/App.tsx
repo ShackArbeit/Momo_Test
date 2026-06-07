@@ -9,7 +9,7 @@ import CartPage from './pages/CartPage'
 export default function App() {
   return (
     <CartProvider>
-      <BrowserRouter basename="/momo-mock">
+      <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<HomePage />} />
