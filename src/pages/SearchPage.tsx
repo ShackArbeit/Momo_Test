@@ -1,7 +1,8 @@
 import { useSearchParams } from 'react-router-dom'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'
 import { searchProducts, type Category } from '../types/products'
+import { logEvent } from '../utils/telemetry'
 import './styles/SearchPage.css'
 
 const CATEGORIES: Category[] = ['家電', '美妝', '服飾', '食品', '3C', '家居', '母嬰', '運動']
@@ -17,6 +18,10 @@ export default function SearchPage() {
   const query = searchParams.get('q') ?? ''
   const [activeCategory, setActiveCategory] = useState<Category | undefined>(undefined)
   const [sort, setSort] = useState('default')
+
+  useEffect(() => {
+    if (query) logEvent({ type: 'search', query })
+  }, [query])
 
   const results = useMemo(() => {
     const base = searchProducts(query, activeCategory)

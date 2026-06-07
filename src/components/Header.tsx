@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
+import { logEvent } from '../utils/telemetry'
 import './styles/Header.css'
 
 export default function Header() {
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
+  const { totalCount } = useCart()
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
     const q = query.trim()
-    if (q) navigate(`/search?q=${encodeURIComponent(q)}`)
+    if (!q) return
+    logEvent({ type: 'search', query: q })
+    navigate(`/search?q=${encodeURIComponent(q)}`)
   }
 
   return (
@@ -36,11 +41,16 @@ export default function Header() {
         </form>
 
         <Link to="/cart" className="cart-btn" aria-label="購物車">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <path d="M16 10a4 4 0 01-8 0" />
-          </svg>
+          <div className="cart-icon-wrap">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 01-8 0" />
+            </svg>
+            {totalCount > 0 && (
+              <span className="cart-badge">{totalCount > 99 ? '99+' : totalCount}</span>
+            )}
+          </div>
           <span className="cart-label">購物車</span>
         </Link>
       </div>

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import type { Product } from '../types/products'
+import { logEvent } from '../utils/telemetry'
 import './styles/ProductCard.css'
 
 interface Props {
@@ -10,8 +11,13 @@ export default function ProductCard({ product }: Props) {
   const navigate = useNavigate()
   const discount = Math.round((1 - product.price / product.originalPrice) * 100)
 
+  function handleClick() {
+    logEvent({ type: 'product_click', productId: product.id, productName: product.name })
+    navigate(`/goods/${product.id}`)
+  }
+
   return (
-    <div className="product-card" onClick={() => navigate(`/goods/${product.id}`)}>
+    <div className="product-card" onClick={handleClick}>
       <div className="product-card-img-wrap">
         <img src={product.image} alt={product.name} loading="lazy" />
         {discount > 0 && <span className="discount-badge">{discount}折</span>}
