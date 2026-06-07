@@ -1,0 +1,40 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.banner-placeholder {
+  background: #fde8e8;
+  border: 2px dashed #c0392b;
+  border-radius: 8px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c0392b;
+  font-size: 15px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #c0392b;
+  border-left: 4px solid #c0392b;
+  padding-left: 10px;
+  margin: 0 0 12px;
+}
+
+.category-section,
+.hot-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.placeholder-text {
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+}

@@ -1,0 +1,110 @@
+.header {
+  background: #c0392b;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px;
+}
+
+.logo {
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.logo-momo {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  font-style: italic;
+}
+
+.logo-shop {
+  font-size: 12px;
+  color: #ffd;
+  font-weight: 400;
+}
+
+.search-bar {
+  flex: 1;
+  display: flex;
+  max-width: 560px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-bar button {
+  padding: 0 14px;
+  background: #e67e22;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar button:hover {
+  background: #d35400;
+}
+
+.cart-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.cart-btn:hover {
+  color: #ffd;
+}
+
+.cart-label {
+  font-size: 11px;
+}
+
+.subnav {
+  background: #a93226;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.subnav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 7px 18px;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.subnav a:hover {
+  background: #922b21;
+}
