@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom'
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'
 import { searchProducts, type Category } from '../types/products'
 import { logEvent } from '../utils/telemetry'
@@ -14,9 +14,9 @@ const SORT_OPTIONS = [
 ]
 
 export default function SearchPage() {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const query = searchParams.get('q') ?? ''
-  const [activeCategory, setActiveCategory] = useState<Category | undefined>(undefined)
+  const activeCategory = CATEGORIES.includes(query as Category) ? (query as Category) : undefined
   const [sort, setSort] = useState('default')
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function SearchPage() {
             <li>
               <button
                 className={`filter-btn ${!activeCategory ? 'active' : ''}`}
-                onClick={() => setActiveCategory(undefined)}
+                onClick={() => setSearchParams({})}
               >
                 全部
               </button>
@@ -56,7 +56,7 @@ export default function SearchPage() {
               <li key={c}>
                 <button
                   className={`filter-btn ${activeCategory === c ? 'active' : ''}`}
-                  onClick={() => setActiveCategory(c === activeCategory ? undefined : c)}
+                  onClick={() => setSearchParams(c === activeCategory ? {} : { q: c })}
                 >
                   {c}
                 </button>
